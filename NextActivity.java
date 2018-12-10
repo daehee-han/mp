@@ -60,7 +60,7 @@ public class NextActivity extends AppCompatActivity{
         ListElementsArrayList = new ArrayList<String>(Arrays.asList(ListElements));
 
         adapter = new ArrayAdapter<String>(NextActivity.this,
-                android.R.layout.simple_list_item_1,
+                android.R.layout.simple_list_item_single_choice,
                 ListElementsArrayList
         );
 
@@ -117,6 +117,25 @@ public class NextActivity extends AppCompatActivity{
             }
         });
 
+        Button deleteButton = (Button)findViewById(R.id.del_button) ;
+        deleteButton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                int count, checked ;
+                count = adapter.getCount() ;
+                if (count > 0) {
+
+                    checked = listView.getCheckedItemPosition();
+
+                    if (checked > -1 && checked < count) {
+                        ListElementsArrayList.remove(checked) ;
+
+                        listView.clearChoices();
+
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        }) ;
 
     }
 }
